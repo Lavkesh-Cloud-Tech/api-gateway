@@ -1,4 +1,3 @@
-
 package org.lavkesh.poc;
 
 import org.springframework.boot.SpringApplication;

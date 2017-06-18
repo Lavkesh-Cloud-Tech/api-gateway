@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.4.3.RELEASE'
+		springBootVersion = '1.5.3.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -18,13 +18,13 @@ apply plugin: 'org.springframework.boot'
 
 dependencyManagement {
      imports {          
-          mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Camden.SR3'
+          mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Camden.SR7'
      }
 }
 
 jar {
-    baseName = 'spring-cloud-web'
-    version =  '0.0.1'
+    archiveName = 'api-gateway.jar'
+    baseName = 'api-gateway'
 }
 
 repositories {
@@ -32,11 +32,8 @@ repositories {
     mavenCentral()    
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 dependencies {
-	compile project(':cloud-model')
+    compile 'lavkesh.springcloud:cloud-model:1.0.0'
     compile 'org.springframework.cloud:spring-cloud-starter-eureka'
     compile 'org.springframework.cloud:spring-cloud-starter-config'
     compile 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
@@ -48,7 +45,10 @@ dependencies {
     }
     testCompile 'org.assertj:assertj-core:2.5.0'
     testCompile 'org.seleniumhq.selenium:selenium-java:2.53.1'
-  
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.0'
 }
 
 // application config task

@@ -1,37 +1,38 @@
 server:
-  port: ${APP_PORT:8080}
-  context-path: /springCloud
+  port: 8080
+  context-path: /api-gateway
   
 #Spring resource config
 spring:
   application:
-    name: Cloud-Web
+    name: api-gateway
   cloud:
     bus:
       destination: test-bus
     config:
       name: foo
       discovery:
-        service-id: lavkesh-config-server
+        service-id: config-server
         enabled: true
       label: ${CONFIG_LABEL:master}
-  resources:
-    chain:
-      cache: false
-    static-locations: ${STATIC_RESOURCE_LOCATION}
+rabbitmq:
+    host: rabbitmq-service
+    port: 5672
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
 
 #Eureka config
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     registry-fetch-interval-seconds: 10
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761}/eureka/
-  instance:
-    preferIpAddress: true
+      defaultZone: http://${REGISTRY_USERNAME}:${REGISTRY_PASSWORD}@registry-server:8080/registry/eureka/
 
 management:
   context-path: /manage
-  port: ${MANGEMENT_PORT:9080}
+  port: 9080
 
 endpoints:
   enabled: false
