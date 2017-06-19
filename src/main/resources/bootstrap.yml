@@ -1,7 +1,3 @@
-server:
-  port: 8080
-  context-path: /api-gateway
-  
 #Spring resource config
 spring:
   application:
@@ -10,16 +6,12 @@ spring:
     bus:
       destination: test-bus
     config:
-      name: foo
       discovery:
         service-id: config-server
         enabled: true
       label: ${CONFIG_LABEL:master}
-rabbitmq:
-    host: rabbitmq-service
-    port: 5672
-    username: ${RABBITMQ_USERNAME}
-    password: ${RABBITMQ_PASSWORD}
+      name: application
+      profile: ${spring.application.name}
 
 #Eureka config
 eureka:
